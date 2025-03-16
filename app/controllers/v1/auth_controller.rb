@@ -21,6 +21,6 @@ class V1::AuthController < ApplicationController
       "HS256"
     )
 
-    render json: { message: "Login successful", data: token }, status: :ok
+    render json: { message: "Login successful", data: { token: token } }, status: :ok
   end
 end

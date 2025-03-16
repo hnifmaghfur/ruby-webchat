@@ -7,10 +7,19 @@ class V1::UsersController < ApplicationController
   def index
     begin
       # Get users data
-      users = User.all.select(:id, :username)
+      users = User.where.not(id: @user_id).select(:id, :username, :created_at)
       render json: { message: "success", data: users }, status: :ok
-    rescue JWT::DecodeError
-      render json: { error: "Invalid token" }, status: :unauthorized
+    rescue StandardError => e
+      render json: { error: e.message }, status: :internal_server_error
+    end
+  end
+
+  def show
+    begin
+      # Get user by id
+      user = User.find(params[:id])
+      user = user.slice(:id, :username)
+      render json: { message: "success", data: user }, status: :ok
     rescue StandardError => e
       render json: { error: e.message }, status: :internal_server_error
     end

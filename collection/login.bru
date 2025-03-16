@@ -11,12 +11,17 @@ post {
 }
 
 body:json {
+  // {
+  //   "username":"rubyhan@yopmail.com",
+  //   "password":"inipassword"
+  // }
+  
   {
-    "username":"rubyhan@yopmail.com",
-    "password":"inipassword"
+    "username":"hanrails",
+    "password":"123123"
   }
 }
 
 script:post-response {
-  bru.setVar("token", res.body.data)
+  bru.setVar("token", res.body.data.token)
 }
